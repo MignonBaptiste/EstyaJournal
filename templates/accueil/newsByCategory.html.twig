@@ -1,0 +1,48 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block body %}
+      <div class="site-section">
+          <div class="container">
+        <div class="row mb-5">
+          <div class="col-12">
+            <h2>{{ category.name }} category</h2>
+            {% if news|length<1 %}
+                <p>Aucune news pour cette catégorie</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          {% for news in news %}
+          <div class="col-lg-3 mb-3">
+            <div class="entry2">
+              <a href="{{ path('app_new_show',{'id': news.id}) }}">
+              <img class="img-fluid rounded" src="{{ vich_uploader_asset( news,'imageFile')}}">
+              <!--<img src="images/img_2.jpg" alt="Image" class="img-fluid rounded">-->
+              </a>
+              <div class="excerpt">
+              <span class="post-category text-white bg-success mb-3">{{ news.category }}</span>
+
+              <h2><a href="{{ path('app_new_show',{'id': news.id}) }}">{{ news.title }}</a></h2>
+              <div class="post-meta align-items-center text-left clearfix">
+                <!--<figure class="author-figure mb-0 mr-3 float-left">
+                  <img src="images/person_1.jpg" alt="Image" class="img-fluid">
+                </figure> -->
+                <span class="d-inline-block mt-1">By <a href="#"> <b>{{ news.author.nom }} {{ news.author.prenoms }} </b></a></span>
+                <span>{{ news.createdAt |ago}}</span>
+              </div>
+              
+                <p>{{ news.description|slice(0,30) }}...</p>
+                <p><a href="{{ path('app_new_show',{'id': news.id}) }}">Lire plus...</a></p>
+              </div>
+          </div>
+          </div>
+          {% endfor %}
+          
+          </div>
+
+      </div>
+    </div>
+
+{% endblock %}

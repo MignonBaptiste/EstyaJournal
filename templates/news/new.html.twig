@@ -1,0 +1,11 @@
+{% extends "Layout/base.html.twig" %}
+
+{% block body %}
+    <div class="container"><br><br><br>
+    <h1>Créer un nouvel article</h1>
+
+    {{ include('news/_form.html.twig') }} <br>
+
+    <a href="{{ path('app_news_index') }}" class="btn btn-primary btn-block">retour</a> <br>
+    </div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+        <div class="site-section ">
+        <div class="container "> 
+        <div id="carouselExampleIndicators" class="carousel slide">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-l	abel="Slide 1">
+            </button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
+            </button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{{asset('assets/images/afterheaderca (2).png') }}" class="d-block w-100 h-30 img-fluid rounded" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="{{asset('assets/images/afterheaderca (2).png') }}" class="d-block w-100 h-30 img-fluid rounded" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" ariahidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div> <br>
+  
+        <div class="row mb-5">
+          <div class="col-12">
+            <h2 class="text-center">NOS RECENTS ARTICLES</h2>
+          </div>
+        </div>
+        <div class="row">
+          {% for news in pagination %}
+            <div class="col-lg-3 mb-3">
+            <div class="entry2 bg-light">
+              <a href="{{ path('app_new_show',{'id': news.id}) }}">
+              <img class="img-fluid rounded" src="{{ vich_uploader_asset( news,'imageFile')}}">
+              </a>
+              <div class="excerpt" >
+              <span class="post-category text-white bg-success mb-3">{{ news.category }}</span>
+
+              <h2><a href="{{ path('app_new_show',{'id': news.id}) }}">{{ news.title }}</a></h2>
+              <div class="post-meta align-items-center text-left clearfix">
+                <!--<figure class="author-figure mb-0 mr-3 float-left">
+                  <img src="public/images/BgEtudiantB.png" alt="Image" class="img-fluid">
+                </figure>-->
+                <span class="d-inline-block mt-1">By <a href="#"><b>{{ news.author.nom }} {{ news.author.prenoms }}</b></a></span>
+                <span>{{ news.createdAt |ago}}</span>
+              </div>
+              
+                <p>{{ news.description|slice(0,25) }}...</p>
+                <p><a href="{{ path('app_new_show',{'id': news.id}) }}">Lire plus...</a></p>
+              </div>
+          </div>
+          </div>
+          {% endfor %}
+          
+          </div> <br>
+          {{ knp_pagination_render(pagination) }}
+
+      </div>
+    </div>
+
+{% endblock %}
